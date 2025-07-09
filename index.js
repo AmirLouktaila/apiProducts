@@ -3,7 +3,9 @@ const app = express();
 const database = require("./supabase_func");
 const productsTable = database('products');
 const categoryTable = database('category');
+const cors = require('cors');
 PORT = 3000
+app.use(cors());
 app.get('/products', async (_req, res) => {
     try {
         const products = await productsTable.getAllProducts();
