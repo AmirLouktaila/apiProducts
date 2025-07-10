@@ -4,7 +4,7 @@ const database = require("./supabase_func");
 const productsTable = database('products');
 const categoryTable = database('category');
 const usersTable = database('users');
-app.use(express.json()); 
+
 PORT = 3000
 app.get('/products', async (_req, res) => {
     try {
