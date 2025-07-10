@@ -9,13 +9,8 @@ function database(tableName) {
             const { data, error } = await supabase
                 .from(tableName)
                 .insert([user]);
-
-            if (error) {
-                throw new Error(`Error creating user: ${error.message}`);
-            }
-            return data;
+            return { data, error }; 
         },
-
         async updateUser(id, update) {
             const { data, error } = await supabase
                 .from(tableName)
