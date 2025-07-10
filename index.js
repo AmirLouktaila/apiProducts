@@ -3,9 +3,9 @@ const app = express();
 const database = require("./supabase_func");
 const productsTable = database('products');
 const categoryTable = database('category');
-const cors = require('cors');
+const usersTable = database('users');
+
 PORT = 3000
-app.use(cors());
 app.get('/products', async (_req, res) => {
     try {
         const products = await productsTable.getAllProducts();
@@ -88,6 +88,54 @@ app.get('/categorys', async (_req, res) => {
 app.post('/createProdcut', async (req, res) => { 
     
 })
+app.post('/RequestUser', async (req, res) => {
+    try {
+        const {
+            fullName,
+            email,
+            phone,
+            state,
+            bladia,
+            idProduct,
+            finalPrice
+        } = req.body;
+
+        const { data, error } = await usersTable.createUser({
+            fullName,
+            email,
+            phone,
+            state,
+            bladia,
+            idProduct,
+            finalPrice
+        });
+
+        if (error) {
+            console.error('Insert error:', error.message);
+            return res.status(500).send({
+                success: false,
+                message: 'Error inserting user',
+                error: error.message
+            });
+        }
+
+        return res.status(200).send({
+            success: true,
+            message: 'User added successfully',
+            data
+        });
+
+    } catch (err) {
+        console.error('Server error:', err.message);
+        return res.status(500).send({
+            success: false,
+            message: 'Internal server error',
+            error: err.message
+        });
+    }
+});
+
+  
 app.listen(PORT, () =>
     console.log(`🚀 http://localhost:${PORT} قيد التشغيل`)
 );
