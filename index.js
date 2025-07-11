@@ -94,7 +94,7 @@ app.post('/RequestUser', async (req, res) => {
     try {
         const {
             fullName,
-            email,
+            shippinginhome,
             phone,
             state,
             bladia,
@@ -104,7 +104,7 @@ app.post('/RequestUser', async (req, res) => {
 
         const { data, error } = await usersTable.createUser({
             fullName,
-            email,
+            shippinginhome,
             phone,
             state,
             bladia,
