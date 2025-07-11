@@ -99,7 +99,8 @@ app.post('/RequestUser', async (req, res) => {
             state,
             bladia,
             idProduct,
-            finalPrice
+            finalPrice,
+            quantity
         } = req.body;
 
         const { data, error } = await usersTable.createUser({
@@ -109,7 +110,8 @@ app.post('/RequestUser', async (req, res) => {
             state,
             bladia,
             idProduct,
-            finalPrice
+            finalPrice,
+            quantity
         });
 
         if (error) {
