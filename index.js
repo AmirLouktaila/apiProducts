@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const database = require("./supabase_func");
 const productsTable = database('products');
 const categoryTable = database('category');
 const usersTable = database('users');
 app.use(express.json()); 
+app.use(cors()); 
 PORT = 3000
 app.get('/products', async (_req, res) => {
     try {
