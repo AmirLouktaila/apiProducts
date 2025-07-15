@@ -33,7 +33,31 @@ app.get('/products', async (_req, res) => {
         });
     }
 });
+app.get('/users', async (_req, res) => {
+    try {
+        const users = await usersTable.getAllProducts();
 
+        if (users.length > 0) {
+            return res.send({
+                success: true,
+                users: users
+            });
+        }
+
+        return res.send({
+            success: false,
+            message: 'no users',
+            products: users
+        });
+
+    } catch (err) {
+        console.error('Error:', err.message);
+        return res.status(500).send({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+});
 app.get('/product', async (req, res) => {
     const { id } = req.query;
 
