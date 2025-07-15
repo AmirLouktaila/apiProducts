@@ -35,7 +35,7 @@ app.get('/products', async (_req, res) => {
 });
 app.get('/users', async (_req, res) => {
     try {
-        const users = await usersTable.getAllUsers(); // ✅ استدعاء صحيح
+        const users = await usersTable.getAllProducts(); // ✅ استدعاء صحيح
 
         if (users.length > 0) {
             return res.send({
