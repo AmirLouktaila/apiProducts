@@ -7,7 +7,7 @@ const categoryTable = database('category');
 const usersTable = database('users');
 app.use(express.json()); 
 app.use(cors()); 
-PORT = 3000
+const PORT = 3000
 app.get('/products', async (_req, res) => {
     try {
         const products = await productsTable.getAllProducts();
@@ -35,7 +35,7 @@ app.get('/products', async (_req, res) => {
 });
 app.get('/users', async (_req, res) => {
     try {
-        const users = await usersTable.getAllProducts();
+        const users = await usersTable.getAllUsers(); // ✅ استدعاء صحيح
 
         if (users.length > 0) {
             return res.send({
@@ -47,7 +47,7 @@ app.get('/users', async (_req, res) => {
         return res.send({
             success: false,
             message: 'no users',
-            products: users
+            users: users // ✅ تصحيح المفتاح
         });
 
     } catch (err) {
@@ -58,6 +58,7 @@ app.get('/users', async (_req, res) => {
         });
     }
 });
+
 app.get('/product', async (req, res) => {
     const { id } = req.query;
 
@@ -111,9 +112,9 @@ app.get('/categorys', async (_req, res) => {
     }
 });
 
-app.post('/createProdcut', async (req, res) => { 
+// app.post('/createProdcut', async (req, res) => { 
     
-})
+// })
 app.post('/RequestUser', async (req, res) => {
     try {
         const {
