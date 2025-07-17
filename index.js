@@ -111,10 +111,33 @@ app.get('/categorys', async (_req, res) => {
         });
     }
 });
+app.get('/deleteProduct', async (req, res) => {
+    const { id } = req.query;
+    try {
+        const deleteProduct = await productsTable.Delete(id);
 
-// app.post('/createProdcut', async (req, res) => { 
-    
-// })
+        if (deleteProduct) {
+            return res.send({
+                success: true,
+             
+            });
+        }
+
+        return res.send({
+            success: false,
+ 
+  
+        });
+
+    } catch (err) {
+        console.error('Error:', err.message);
+        return res.status(500).send({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+});
+
 app.post('/RequestUser', async (req, res) => {
     try {
         const {
@@ -164,7 +187,56 @@ app.post('/RequestUser', async (req, res) => {
     }
 });
 
-  
+app.post('/PostProduct', async (req, res) => {
+    try {
+        const {
+            title,
+            price,
+            originalPrice,
+            image,
+            imageList,
+            category,
+            description,
+        } = req.body;
+
+        const { data, error } = await productsTable.createUser({
+            title,
+            price,
+            originalPrice,
+            image,
+            imageList,
+            category,
+            description,
+        });
+
+        if (error) {
+            console.error('Insert error:', error.message);
+            return res.status(500).send({
+                success: false,
+                message: 'Error inserting Product',
+                error: error.message
+            });
+        }
+
+        return res.status(200).send({
+            success: true,
+            message: 'Product added successfully',
+            data
+        });
+
+    } catch (err) {
+        console.error('Server error:', err.message);
+        return res.status(500).send({
+            success: false,
+            message: 'Internal server error',
+            error: err.message
+        });
+    }
+});
+
+
+
+
 app.listen(PORT, () =>
     console.log(`🚀 http://localhost:${PORT} قيد التشغيل`)
 );
