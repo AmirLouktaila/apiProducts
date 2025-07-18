@@ -48,16 +48,9 @@ function database(tableName) {
             const { data, error } = await supabase
                 .from(tableName)
                 .delete()
-                .eq('id', id)
-            if (error) {
-                return error;
-            } else {
-                return true;
-            }
-
-            if (error) {
-                throw new Error(`Error delete products: ${error.message}`);
-            }
+                .eq('id', id);
+            
+            if (error) throw new Error(`Error deleting product: ${error.message}`);
             return data;
         },
     };
